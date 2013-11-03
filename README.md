@@ -10,6 +10,9 @@ Data mining house.gov for fun and ~~profit~~ grades
 ## How to run:
 
 Gather project data from House.gov:
-``cd data/src``
-``python run_scraper.py``
+
+```
+cd data/src
+python run_scraper.py --year 2011 --limit 100
+```
 
