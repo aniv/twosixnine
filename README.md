@@ -4,15 +4,25 @@ twosixnine
 Data mining house.gov for fun and ~~profit~~ grades
 
 ## Prerequisites:
-* [BeautifulSoup](http://www.crummy.com/software/BeautifulSoup/bs4/doc/#installing-beautiful-soup)
-* urllib2, Queue, threading, argparse
+* [PeeWee](http://peewee.readthedocs.org/en/latest/peewee/quickstart.html)
+* Queue, threading, argparse
 
-## How to run:
+## Gather data:
 
-Gather project data from House.gov:
+Get data from Govtrack by cloning their [congressional project](https://github.com/unitedstates/congress).
+Follow instructions to setup & install the package. Then download the JSON data:
 
 ```
-cd data/src
-python run_scraper.py --year 2011 --limit 100
+./run bills --bill_type=hres --congress=111
+```
+
+## Prepare data:
+
+Process data obtained from Govtrack APIs
+
+```
+source env/bin/activate
+pip install -r requirements.txt
+python govtrack.py -d /Users/aniv/Dev/congress/data
 ```
 
