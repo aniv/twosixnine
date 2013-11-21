@@ -46,7 +46,7 @@ class GovtrackProcessor:
 		self.bill_queue.join()
 
 	def worker(self):
-		db = MySQLdb.connect(db='twosixnine', host='twosixnine.cfhwd4wxhlyi.us-east-1.rds.amazonaws.com', user='stat', passwd='d3anf0ster')
+		db = MySQLdb.connect(db='twosixnine', host='twosixnine.code.aniv.info', user='stat701', passwd='d3anf0st3r')
 		conn = db.cursor()
 		while True:
 			bill = self.bill_queue.get()
