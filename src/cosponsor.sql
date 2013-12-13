@@ -1,3 +1,5 @@
+-- delete from cosponsor_counts;
+
 insert into cosponsor_counts (bill_id, cosponsor_r, cosponsor_d)
 select r.bill_id, r.cosponsor_r, d.cosponsor_d
 from

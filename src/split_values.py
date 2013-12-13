@@ -82,6 +82,24 @@ def split_cosponsors():
 			bill_cosponsors.append(zip((bill_id,)*len(cosponsors), cosponsors))
 	return bill_cosponsors
 
+def split_cosponsors_subset(bill_ids_str):
+	global db
+	bill_cosponsors = []
+	conn = db.cursor()
+	print """SELECT bill_id, cosponsor_ids FROM raw_bill_data WHERE bill_id IN ({0})""".format(bill_ids_str)
+	conn.execute("""SELECT bill_id, cosponsor_ids FROM raw_bill_data WHERE bill_id IN ({0})""".format(bill_ids_str))
+	while True:
+		row = conn.fetchone()
+		if row == None:
+			break
+		else:
+			bill_id = row[0]
+			cosponsors = row[1]
+			cosponsors = cosponsors.split('|')
+			bill_cosponsors.append(zip((bill_id,)*len(cosponsors), cosponsors))
+	return bill_cosponsors
+
+
 def split_subjects():
 	global db
 	bill_subjects = []
@@ -109,14 +127,14 @@ def main():
 	global db
 	credentials = json.loads(open('credentials.json').read())
 	db = MySQLdb.connect(db=credentials['db'], host=credentials['host'], user=credentials['user'], passwd=credentials['password'])
-	# process_yamls()
+	process_yamls()
 
-	# data = split_cosponsors()
+	data = split_cosponsors_subset(open('../data/160plusfmt.txt').read())
 	# print data
-	# print append_cosponsor_details(data)
+	print append_cosponsor_details(data)
 
-	data = split_subjects()
-	append_subject_details(data)
+	# data = split_subjects()
+	# append_subject_details(data)
 
 
 if __name__ == "__main__":
